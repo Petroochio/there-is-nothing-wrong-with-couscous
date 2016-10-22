@@ -3,22 +3,29 @@ import most from 'most';
 import CrackedPepper from './lib/cracked-pepper';
 import * as THREE from 'three';
 
-window.onload = () => {
+import newSphere from './sphere';
 
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 50 );
+const genSpheres = numSpheres =>
+  R.unfold(
+    n => n > numSpheres ? false : [ newSphere( n / numSpheres ), n + 1 ],
+    0
+  );
+
+window.onload = () => {
+  // Camera Setup
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 50 );
   camera.position.z = 30;
 
-  var renderer = new THREE.WebGLRenderer( { antialias: true } );
+  const renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.setClearColor( 0x000000, 1 );
   document.body.appendChild( renderer.domElement );
-
   const effect = new CrackedPepper(renderer);
-  // effect.setFromCamera( camera );
+
   effect.setSize(window.innerWidth, window.innerHeight)
-  effect.viewDistance = 50;
+  effect.viewDistance = 100;
 
   var ambientLight = new THREE.AmbientLight( 0x000000 );
   scene.add( ambientLight );
@@ -36,10 +43,8 @@ window.onload = () => {
   scene.add( lights[ 1 ] );
   scene.add( lights[ 2 ] );
 
-  var geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
-  var mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial({color: 0xf0f0f0}) );
-
-  scene.add( mesh );
+  genSpheres( 50 )
+    .forEach( sphere => scene.add( sphere ) );
 
   var render = function () {
 
@@ -47,8 +52,8 @@ window.onload = () => {
 
   	var time = Date.now() * 0.001;
 
-  	mesh.rotation.x += 0.005;
-  	mesh.rotation.y += 0.005;
+  	scene.rotation.x += 0.005;
+  	scene.rotation.y += 0.005;
 
   	effect.render( scene );
 
