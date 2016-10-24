@@ -5,9 +5,15 @@ import * as THREE from 'three';
 
 import newSphere from './sphere';
 
-const genSpheres = numSpheres =>
+const genSphereRow = ( theta, numZ ) =>
   R.unfold(
-    n => n > numSpheres ? false : [ newSphere( n / numSpheres ), n + 1 ],
+    n => n > numZ ? false : [ newSphere( theta, n / numZ ), n + 1 ],
+    0
+  );
+
+const genSpheres = ( numY, numZ ) =>
+  R.unfold(
+    n => n > numY ? false : [ genSphereRow( n / numY, numZ ), n + 1 ],
     0
   );
 
@@ -43,17 +49,19 @@ window.onload = () => {
   scene.add( lights[ 1 ] );
   scene.add( lights[ 2 ] );
 
-  genSpheres( 50 )
+  R.flatten(genSpheres( 20, 10 ))
     .forEach( sphere => scene.add( sphere ) );
 
   var render = function () {
 
   	requestAnimationFrame( render );
 
-  	var time = Date.now() * 0.001;
-
-  	scene.rotation.x += 0.005;
-  	scene.rotation.y += 0.005;
+  	// var time = Date.now() * 0.001;
+    //
+  	// scene.rotation.x += 0.005;
+  	// scene.rotation.y += 0.005;
+    scene.rotation.x = 0.4;
+  	scene.rotation.y = 0.4;
 
   	effect.render( scene );
 
