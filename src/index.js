@@ -48,7 +48,6 @@ window.onload = () => {
   // Camera Setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 50 );
-  camera.position.z = 30;
 
   const renderer = new THREE.WebGLRenderer( { antialias: true } );
   renderer.setPixelRatio( window.devicePixelRatio );
@@ -77,8 +76,10 @@ window.onload = () => {
   scene.add( lights[ 2 ] );
 
   const eyeSpheres = R.flatten(genSpheres( 25, 25 ));
-  eyeSpheres
-    .forEach( sphere => scene.add( sphere ) );
+  eyeSpheres.forEach( sphere => scene.add( sphere ) );
+
+  let xRot = 0;
+  let yRot = 0;
 
   swapEyeState();
 
@@ -91,6 +92,9 @@ window.onload = () => {
     if ( SPHERE_STATE === 'DISPERSE' ) {
       scene.rotation.x += 0.004;
     	scene.rotation.y += 0.004;
+    } else {
+      scene.rotation.x = xRot;
+      scene.rotation.y = yRot;
     }
 
   	effect.render( scene );
@@ -109,4 +113,8 @@ window.onload = () => {
   render();
 
   document.querySelector('canvas').addEventListener( 'click', swapEyeState);
+  document.querySelector('canvas').addEventListener( 'mousemove', ({ screenX, screenY }) => {
+    xRot = Math.PI * 2 * screenX / window.innerWidth;
+    yRot = Math.PI * 2 * screenY / window.innerHeight;
+  });
 }
