@@ -1,13 +1,15 @@
 import R from 'ramda';
-import most from 'most';
+import * as most from 'most';
 import CrackedPepper from './lib/cracked-pepper';
 import * as THREE from 'three';
 
 import newSphere from './sphere';
 
+
 let SPHERE_STATE = 'EYE'; // EYE
 let switchTime = 0;
 let moveInterval = 2000;
+let eyeLook = { x: 0, y: 0.25 };
 
 const swapEyeState = () => {
   SPHERE_STATE = SPHERE_STATE === 'EYE' ? 'DISPERSE' : 'EYE';
@@ -43,8 +45,6 @@ const updateSphere = sphere => {
   }
 };
 
-
-
 window.onload = () => {
   // Camera Setup
   const scene = new THREE.Scene();
@@ -65,19 +65,13 @@ window.onload = () => {
 
   var lights = [];
   lights[ 0 ] = new THREE.AmbientLight( 0xffffff);
-  // lights[ 1 ] = new THREE.PointLight( 0xffffff, 1, 0 );
-  // lights[ 2 ] = new THREE.PointLight( 0xffffff, 1, 0 );
-
-  // lights[ 0 ].position.set( 0, 200, 0 );
-  // lights[ 1 ].position.set( 100, 200, 100 );
-  // lights[ 2 ].position.set( - 100, - 200, - 100 );
 
   scene.add( lights[ 0 ] );
-  // scene.add( lights[ 1 ] );
-  // scene.add( lights[ 2 ] );
 
+  const eyeObj = new THREE.Object3D();
   const eyeSpheres = R.flatten(genSpheres( 25, 25 ));
-  eyeSpheres.forEach( sphere => scene.add( sphere ) );
+  eyeSpheres.forEach( sphere => eyeObj.add( sphere ) );
+  scene.add( eyeObj );
 
   let xRot = 0;
   let yRot = 0;
@@ -93,9 +87,12 @@ window.onload = () => {
     if ( SPHERE_STATE === 'DISPERSE' ) {
       xRot += 0.004;
     	yRot += 0.004;
+    } else {
+      xRot = eyeLook.y;
+      yRot = eyeLook.x;
     }
 
-    scene.rotation.x = xRot;
+    eyeObj.rotation.x = xRot;
     scene.rotation.y = yRot;
 
   	effect.render( scene );
@@ -120,4 +117,13 @@ window.onload = () => {
       yRot -=  movementY / window.innerHeight * 4;
     }
   });
+
+  // Fake some api shit
+  const api$ = most.periodic(10, 0.2)
+    .scan( ( sum, x ) => sum + x, -200 )
+    .forEach( x => {
+        eyeLook.x = Math.acos( 10 / Math.sqrt( 100 + Math.abs(x) ) ) * (x > 0 ? 1 : -1);
+    });
+
+  // end some fake shit
 }
