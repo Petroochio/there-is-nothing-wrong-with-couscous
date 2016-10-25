@@ -90,12 +90,12 @@ window.onload = () => {
     eyeSpheres.forEach( updateSphere );
 
     if ( SPHERE_STATE === 'DISPERSE' ) {
-      scene.rotation.x += 0.004;
-    	scene.rotation.y += 0.004;
-    } else {
-      scene.rotation.x = xRot;
-      scene.rotation.y = yRot;
+      xRot += 0.004;
+    	yRot += 0.004;
     }
+
+    scene.rotation.x = xRot;
+    scene.rotation.y = yRot;
 
   	effect.render( scene );
 
@@ -113,8 +113,10 @@ window.onload = () => {
   render();
 
   document.querySelector('canvas').addEventListener( 'click', swapEyeState);
-  document.querySelector('canvas').addEventListener( 'mousemove', ({ screenX, screenY }) => {
-    xRot = Math.PI * 2 * screenX / window.innerWidth;
-    yRot = Math.PI * 2 * screenY / window.innerHeight;
+  document.querySelector('canvas').addEventListener( 'mousemove', ({ movementX, movementY }) => {
+    if ( SPHERE_STATE === 'EYE' ) {
+      xRot +=  movementX / window.innerWidth * 4;
+      yRot -=  movementY / window.innerHeight * 4;
+    }
   });
 }
