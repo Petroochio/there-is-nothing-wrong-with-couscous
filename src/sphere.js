@@ -12,9 +12,9 @@ const genSphereCords = (theta1, theta2) =>
 
 export default function ( theta, zeta ) {
   const [ x, y, z ] = genSphereCords( theta, zeta );
-  let r = z > EYE_SIZE - 6 && z < EYE_SIZE - 1 ? 0 : z / EYE_SIZE + 0.6;
-  let g = z > EYE_SIZE - 6 && z < EYE_SIZE - 1 ? 0 : z / EYE_SIZE + 0.6;
-  let b = z > EYE_SIZE - 6 && z < EYE_SIZE - 1 ? 0 : z / EYE_SIZE + 0.6;
+  let r = z > EYE_SIZE - 6 && z < EYE_SIZE - 1 ? 0 : z / EYE_SIZE + 1;
+  let g = z > EYE_SIZE - 6 && z < EYE_SIZE - 1 ? 0 : z / EYE_SIZE + 1;
+  let b = z > EYE_SIZE - 6 && z < EYE_SIZE - 1 ? 0 : z / EYE_SIZE + 1;
 
   const color = z < EYE_SIZE - 1 ? new THREE.Color( r, g, b ) : 0xff0000;
 
@@ -26,9 +26,9 @@ export default function ( theta, zeta ) {
   sphere.position.set( x, y, z );
   sphere.eyePos = { x, y, z };
   sphere.randPos = {
-    x: Math.random() * 60 - 30,
-    y: Math.random() * 60 - 30,
-    z: Math.random() * 60 - 30,
+    x: Math.random() * 80 - 40,
+    y: Math.random() * 80 - 40,
+    z: Math.random() * 80 - 40,
   };
 
   sphere.color = { r, g, b };

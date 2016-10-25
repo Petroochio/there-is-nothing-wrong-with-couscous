@@ -28,7 +28,8 @@ const genSpheres = ( numY, numZ ) =>
 
 const helpVec = new THREE.Vector3();
 const updateSphere = sphere => {
-  if ( Date.now() - switchTime <= moveInterval ) {
+  const minus = SPHERE_STATE === 'EYE' ? 1430 : 0;
+  if ( Date.now() - switchTime <= moveInterval - minus ) {
     const { x, y, z } = sphere.position;
     const targetPos = SPHERE_STATE === 'EYE' ? sphere.eyePos : sphere.randPos;
 
@@ -63,17 +64,17 @@ window.onload = () => {
   scene.add( ambientLight );
 
   var lights = [];
-  lights[ 0 ] = new THREE.PointLight( 0xffffff, 1, 0 );
-  lights[ 1 ] = new THREE.PointLight( 0xffffff, 1, 0 );
-  lights[ 2 ] = new THREE.PointLight( 0xffffff, 1, 0 );
+  lights[ 0 ] = new THREE.AmbientLight( 0xffffff);
+  // lights[ 1 ] = new THREE.PointLight( 0xffffff, 1, 0 );
+  // lights[ 2 ] = new THREE.PointLight( 0xffffff, 1, 0 );
 
-  lights[ 0 ].position.set( 0, 200, 0 );
-  lights[ 1 ].position.set( 100, 200, 100 );
-  lights[ 2 ].position.set( - 100, - 200, - 100 );
+  // lights[ 0 ].position.set( 0, 200, 0 );
+  // lights[ 1 ].position.set( 100, 200, 100 );
+  // lights[ 2 ].position.set( - 100, - 200, - 100 );
 
   scene.add( lights[ 0 ] );
-  scene.add( lights[ 1 ] );
-  scene.add( lights[ 2 ] );
+  // scene.add( lights[ 1 ] );
+  // scene.add( lights[ 2 ] );
 
   const eyeSpheres = R.flatten(genSpheres( 25, 25 ));
   eyeSpheres.forEach( sphere => scene.add( sphere ) );
