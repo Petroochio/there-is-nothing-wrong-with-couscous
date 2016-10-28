@@ -47,7 +47,7 @@ const updateSphere = sphere => {
 
 window.onload = () => {
 
-  var socket = new io('http://10.221.101.27:9002');
+  var socket = new io('https://10.221.101.27:9002');
   console.log(socket);
   socket.on('distance', (e) => console.log(e));
   // socket.on();

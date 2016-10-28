@@ -110,7 +110,7 @@
 
 	window.onload = function () {
 
-	  var socket = new io('http://10.221.101.27:9002');
+	  var socket = new io('https://10.221.101.27:9002');
 	  console.log(socket);
 	  socket.on('distance', function (e) {
 	    return console.log(e);
