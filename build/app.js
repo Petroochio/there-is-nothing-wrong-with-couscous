@@ -109,6 +109,15 @@
 	};
 
 	window.onload = function () {
+
+	  var socket = new io('http://10.221.101.27:9002');
+	  console.log(socket);
+	  socket.on('distance', function (e) {
+	    return console.log(e);
+	  });
+	  // socket.on();
+	  // socket.connect();
+	  //socket.connect('http://10.221.101.27:9002');
 	  // Camera Setup
 	  var scene = new THREE.Scene();
 	  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 50);
