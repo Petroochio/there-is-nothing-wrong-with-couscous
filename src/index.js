@@ -86,13 +86,13 @@ window.onload = () => {
 
   var render = function () {
 
-  	requestAnimationFrame( render );
+  	window.setTimeout( render, 100 );
 
     eyeSpheres.forEach( updateSphere );
 
     if ( SPHERE_STATE === 'DISPERSE' ) {
-      xRot += 0.004;
-    	yRot += 0.004;
+      xRot += 0.1;
+    	yRot += 0.1;
     }
 
     scene.rotation.x = xRot;
