@@ -28,19 +28,19 @@ const genSpheres = ( numY, numZ ) =>
 
 const helpVec = new THREE.Vector3();
 const updateSphere = sphere => {
-  const minus = SPHERE_STATE === 'EYE' ? 1430 : 0;
-  if ( Date.now() - switchTime <= moveInterval - minus ) {
-    const { x, y, z } = sphere.position;
-    const targetPos = SPHERE_STATE === 'EYE' ? sphere.eyePos : sphere.randPos;
-
-//    sphere.material.color = new THREE.color
-
-    sphere.position.set(
-      ( ( targetPos.x - x ) * ( Date.now() - switchTime ) / moveInterval ) + x,
-      ( ( targetPos.y - y ) * ( Date.now() - switchTime ) / moveInterval ) + y,
-      ( ( targetPos.z - z ) * ( Date.now() - switchTime ) / moveInterval ) + z,
-    );
-  }
+//   const minus = SPHERE_STATE === 'EYE' ? 1430 : 0;
+//   if ( Date.now() - switchTime <= moveInterval - minus ) {
+//     const { x, y, z } = sphere.position;
+//     const targetPos = SPHERE_STATE === 'EYE' ? sphere.eyePos : sphere.randPos;
+//
+// //    sphere.material.color = new THREE.color
+//
+//     sphere.position.set(
+//       ( ( targetPos.x - x ) * ( Date.now() - switchTime ) / moveInterval ) + x,
+//       ( ( targetPos.y - y ) * ( Date.now() - switchTime ) / moveInterval ) + y,
+//       ( ( targetPos.z - z ) * ( Date.now() - switchTime ) / moveInterval ) + z,
+//     );
+//   }
 };
 
 
