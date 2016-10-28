@@ -139,7 +139,7 @@
 	  // scene.add( lights[ 1 ] );
 	  // scene.add( lights[ 2 ] );
 
-	  var eyeSpheres = _ramda2.default.flatten(genSpheres(25, 25));
+	  var eyeSpheres = _ramda2.default.flatten(genSpheres(6, 6));
 	  eyeSpheres.forEach(function (sphere) {
 	    return scene.add(sphere);
 	  });
@@ -57169,10 +57169,10 @@
 
 	  var color = z < EYE_SIZE - 1 ? new THREE.Color(r, g, b) : 0xff0000;
 
-	  var rad = z < EYE_SIZE ? 0.5 : 1;
+	  var rad = z < EYE_SIZE ? 1.5 : 2.5;
 
 	  var mat = new THREE.MeshLambertMaterial({ color: color, transparent: true });
-	  var geo = new THREE.SphereGeometry(rad, 10, 10);
+	  var geo = new THREE.SphereGeometry(rad, 3, 3);
 	  var sphere = new THREE.Mesh(geo, mat);
 	  sphere.position.set(x, y, z);
 	  sphere.eyePos = { x: x, y: y, z: z };

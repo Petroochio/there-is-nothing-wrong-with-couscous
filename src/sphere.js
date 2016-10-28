@@ -18,10 +18,10 @@ export default function ( theta, zeta ) {
 
   const color = z < EYE_SIZE - 1 ? new THREE.Color( r, g, b ) : 0xff0000;
 
-  const rad = z < EYE_SIZE ? 0.5 : 1;
+  const rad = z < EYE_SIZE ? 1.5 : 2.5;
 
   const mat = new THREE.MeshLambertMaterial( { color, transparent: true } );
-  const geo = new THREE.SphereGeometry( rad, 10, 10 );
+  const geo = new THREE.SphereGeometry( rad, 3, 3 );
   const sphere = new THREE.Mesh( geo, mat );
   sphere.position.set( x, y, z );
   sphere.eyePos = { x, y, z };

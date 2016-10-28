@@ -76,7 +76,7 @@ window.onload = () => {
   // scene.add( lights[ 1 ] );
   // scene.add( lights[ 2 ] );
 
-  const eyeSpheres = R.flatten(genSpheres( 25, 25 ));
+  const eyeSpheres = R.flatten(genSpheres( 6, 6 ));
   eyeSpheres.forEach( sphere => scene.add( sphere ) );
 
   let xRot = 0;
