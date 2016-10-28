@@ -128,12 +128,6 @@
 
 	  var lights = [];
 	  lights[0] = new THREE.AmbientLight(0xffffff);
-	  // lights[ 1 ] = new THREE.PointLight( 0xffffff, 1, 0 );
-	  // lights[ 2 ] = new THREE.PointLight( 0xffffff, 1, 0 );
-
-	  // lights[ 0 ].position.set( 0, 200, 0 );
-	  // lights[ 1 ].position.set( 100, 200, 100 );
-	  // lights[ 2 ].position.set( - 100, - 200, - 100 );
 
 	  scene.add(lights[0]);
 	  // scene.add( lights[ 1 ] );
@@ -57169,7 +57163,7 @@
 
 	  var color = z < EYE_SIZE - 1 ? new THREE.Color(r, g, b) : 0xff0000;
 
-	  var rad = z < EYE_SIZE ? 1.5 : 2.5;
+	  var rad = z < EYE_SIZE ? 3.5 : 5;
 
 	  var mat = new THREE.MeshLambertMaterial({ color: color, transparent: true });
 	  var geo = new THREE.SphereGeometry(rad, 3, 3);
